@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.learning</groupId>
 	<artifactId>spring-native</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-native</name>
-	<description>Learning project</description>
+	<name>Spring Native Learning Project</name>
+	<description>Learning project for Spring Native and build processes for a secure software supply chain</description>
+
+	<scm>
+		<connection>scm:git:https://github.com/christopherfriedrich/spring-native</connection>
+		<developerConnection>scm:git:git@github.com:christopherfriedrich/spring-native.git</developerConnection>
+		<url>https://github.com/christopherfriedrich/spring-native</url>
+	</scm>
+
 	<properties>
 		<java.version>17</java.version>
-		<repackage.classifier/>
+		<repackage.classifier />
 		<spring-native.version>0.12.0</spring-native.version>
 	</properties>
 	<dependencies>
@@ -47,6 +53,10 @@
 						<builder>paketobuildpacks/builder:tiny</builder>
 						<env>
 							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+							<BP_OCI_TITLE>${project.name}</BP_OCI_TITLE>
+							<BP_OCI_DESCRIPTION>${project.description}</BP_OCI_DESCRIPTION>
+							<BP_OCI_SOURCE>${project.scm.url}</BP_OCI_SOURCE>
+							<BP_OCI_AUTHORS>Christopher Friedrich</BP_OCI_AUTHORS>
 						</env>
 					</image>
 				</configuration>
