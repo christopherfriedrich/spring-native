@@ -52,6 +52,29 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
+				<version>5.0.0</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<phase>initialize</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+					<includeOnlyProperties>
+						<includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+					</includeOnlyProperties>
+					<commitIdGenerationMode>full</commitIdGenerationMode>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire.version}</version>
@@ -83,6 +106,8 @@
 							<BP_OCI_DESCRIPTION>${project.description}</BP_OCI_DESCRIPTION>
 							<BP_OCI_SOURCE>${project.scm.url}</BP_OCI_SOURCE>
 							<BP_OCI_AUTHORS>Christopher Friedrich</BP_OCI_AUTHORS>
+							<BP_OCI_REVISION>${git.commit.id.full}</BP_OCI_REVISION>
+							<BP_OCI_URL>${project.scm.url}</BP_OCI_URL>
 						</env>
 					</image>
 				</configuration>
