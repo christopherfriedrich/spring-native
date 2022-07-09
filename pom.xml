@@ -22,6 +22,11 @@
 	<properties>
 		<java.version>17</java.version>
 		<repackage.classifier />
+
+		<!--suppress UnresolvedMavenProperty -->
+		<skip.surefire.tests>${skipTests}</skip.surefire.tests>
+		<skipITs>true</skipITs>
+
 		<spring-native.version>0.12.0</spring-native.version>
 		<surefire.version>3.0.0-M7</surefire.version>
 		<failsafe.version>3.0.0-M7</failsafe.version>
@@ -50,12 +55,16 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire.version}</version>
+				<configuration>
+					<skipTests>${skip.surefire.tests}</skipTests>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${failsafe.version}</version>
 				<configuration>
+					<skipITs>${skipITs}</skipITs>
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
@@ -121,6 +130,13 @@
 	</pluginRepositories>
 
 	<profiles>
+		<profile>
+			<id>integration-tests</id>
+			<properties>
+				<skip.surefire.tests>true</skip.surefire.tests>
+				<skipITs>false</skipITs>
+			</properties>
+		</profile>
 		<profile>
 			<id>native</id>
 			<properties>
