@@ -80,6 +80,7 @@
 				<version>${surefire.version}</version>
 				<configuration>
 					<skipTests>${skip.surefire.tests}</skipTests>
+					<groups>unit</groups>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -92,6 +93,25 @@
 						<include>**/*IT.java</include>
 					</includes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.8</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -159,6 +179,13 @@
 			<id>integration-tests</id>
 			<properties>
 				<skip.surefire.tests>true</skip.surefire.tests>
+				<skipITs>false</skipITs>
+			</properties>
+		</profile>
+		<profile>
+			<id>all-tests</id>
+			<properties>
+				<skip.surefire.tests>false</skip.surefire.tests>
 				<skipITs>false</skipITs>
 			</properties>
 		</profile>

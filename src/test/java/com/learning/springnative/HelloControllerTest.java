@@ -1,9 +1,11 @@
 package com.learning.springnative;
 
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+@Tag("unit")
 class HelloControllerTest {
 
     @Test
@@ -12,7 +14,7 @@ class HelloControllerTest {
 
         String testee = helloController.hello();
 
-        assertThat(testee).isEqualTo( "Hello from the server");
+        assertThat(testee).isEqualTo("Hello from the server");
     }
 
 }
