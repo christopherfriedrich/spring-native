@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/hello")
 public class HelloController {
 
-    @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
-    public String hello() {
-        return "Hello from the server";
-    }
-
+  @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
+  public String hello() {
+    return "Hello from the server";
+  }
 }

@@ -12,13 +12,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = HelloController.class)
 class HelloControllerIT {
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @Test
-    void whenHittingHelloEndpointThenGreetingIsReturned() throws Exception {
-        mockMvc.perform(get("/hello")).andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN_VALUE))
-                .andExpect(content().string("Hello from the server"));
-    }
+  @Test
+  void whenHittingHelloEndpointThenGreetingIsReturned() throws Exception {
+    mockMvc
+        .perform(get("/hello"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN_VALUE))
+        .andExpect(content().string("Hello from the server"));
+  }
 }
