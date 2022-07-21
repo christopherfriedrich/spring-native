@@ -31,6 +31,10 @@
 		<surefire.version>3.0.0-M7</surefire.version>
 		<failsafe.version>3.0.0-M7</failsafe.version>
 		<spotless.version>2.22.8</spotless.version>
+		<!-- Asciidoc -->
+		<asciidoctor.maven.plugin.version>2.2.2</asciidoctor.maven.plugin.version>
+		<asciidoctorj.pdf.version>2.0.6</asciidoctorj.pdf.version>
+		<asciidoctorj.version>2.5.4</asciidoctorj.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -167,6 +171,50 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>${asciidoctor.maven.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctorj-pdf</artifactId>
+						<version>${asciidoctorj.pdf.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<sourceDirectory>${project.basedir}/src/documentation/asciidoc</sourceDirectory>
+					<!-- Attributes common to all output formats -->
+					<attributes>
+						<sourcedir>${project.basedir}/src/documentation/asciidoc</sourcedir>
+					</attributes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-pdf-doc</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+						<configuration>
+							<backend>pdf</backend>
+							<doctype>book</doctype>
+							<attributes>
+								<pdf-theme>custom</pdf-theme>
+								<pdf-themesdir>${project.basedir}/src/documentation/asciidoc/assets</pdf-themesdir>
+								<revnumber>${project.version}</revnumber>
+								<revdate>${maven.build.timestamp}</revdate>
+								<source-highlighter>rouge</source-highlighter>
+								<icons>font</icons>
+								<pagenums/>
+								<toc/>
+								<idprefix/>
+								<idseparator>-</idseparator>
+							</attributes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

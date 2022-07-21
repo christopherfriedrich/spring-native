@@ -1,0 +1,7 @@
+extends:
+  - default-with-fallback-font
+title-page:
+  align: left
+  background-color: #ba3333
+page:
+  margin: 2.5cm

@@ -1,0 +1,7 @@
+= Project Documentation
+:title: Project Documentation
+:author: Christopher Friedrich
+
+== Introduction
+
+This documentation was generated at {revdate}.
