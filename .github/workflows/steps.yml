@@ -3,10 +3,10 @@ name: Java CI
 on: [push]
 
 jobs:
-  test_and_build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Cehckout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up JDK 17 (Temurin Distribution)
         uses: actions/setup-java@v3
@@ -16,4 +16,31 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn -B -P all-tests --file pom.xml verify package spring-boot:build-image
-
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up JDK 17 (Temurin Distribution)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Build with Maven
+        run: mvn -B -DskipTests --file pom.xml package 
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up JDK 17 (Temurin Distribution)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Build with Maven
+        run: mvn -B -DskipTests --file pom.xml package 
