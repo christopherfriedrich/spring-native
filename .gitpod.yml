@@ -8,4 +8,10 @@ image: gitpod/workspace-java-17:latest
 tasks:
   - init: ./mvnw install -DskipTests=true
 
+ports:
+  - name: Web App
+    description: The main application web server
+    port: 9090
+    onOpen: open-browser
+
 

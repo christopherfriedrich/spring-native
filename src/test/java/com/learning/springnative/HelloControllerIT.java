@@ -1,8 +1,7 @@
 package com.learning.springnative;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,9 @@ class HelloControllerIT {
   @Test
   void whenHittingHelloEndpointThenGreetingIsReturned() throws Exception {
     mockMvc
-        .perform(get("/hello"))
+        .perform(get("/greeting").accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN_VALUE))
-        .andExpect(content().string("Hello from the server"));
+        .andExpect(jsonPath("$.greeting").value("Hello from the server"));
+
   }
 }
