@@ -15,10 +15,13 @@ class HelloControllerIT {
 
   @Test
   void whenHittingHelloEndpointThenGreetingIsReturned() throws Exception {
-    mockMvc
-        .perform(get("/greeting").accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.greeting").value("Hello from the server"));
 
+    String testee = "John";
+
+    mockMvc
+        .perform(get("/greeting/" + testee).accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(
+            jsonPath("$.greeting").value(String.format("Hello from the server, %s", testee)));
   }
 }
